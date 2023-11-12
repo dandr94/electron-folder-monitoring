@@ -91,8 +91,8 @@ ipcMain.on("open-preview-window", (event, fileInfo) => {
 
 function openPreviewWindow(fileInfo) {
     previewWindow = new BrowserWindow({
-        width: 600,
-        height: 400,
+        width: 800,
+        height: 800,
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: true,
@@ -100,17 +100,16 @@ function openPreviewWindow(fileInfo) {
         },
     });
 
-    // Load the preview window HTML file
     previewWindow.loadFile(path.join(__dirname, "renderer/previewWindow.html"));
 
-    // Wait for the preview window to finish loading
+    previewWindow.webContents.openDevTools()
+
     previewWindow.webContents.once("did-finish-load", () => {
-        // Generate data for preview
+        console.log(previewWindow.webContents)
         const subject = generateSubject(fileInfo);
         const recipients = generateRecipients();
         const message = generateMessage(fileInfo);
-        console.log(`${subject}-${recipients}-${message}`);
-        // Send fileInfo to the renderer process of the preview window
+
         previewWindow.webContents.send("file-info", {
             subject,
             recipients,
@@ -118,12 +117,6 @@ function openPreviewWindow(fileInfo) {
         });
     });
 
-    // Additional event handling
-    previewWindow.once("ready-to-show", () => {
-        previewWindow.show();
-    });
-
-    // Handle window close event
     previewWindow.on("closed", () => {
         previewWindow = null;
     });

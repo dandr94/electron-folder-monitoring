@@ -1,5 +1,3 @@
-// renderer.js
-
 document.getElementById("browseButton").addEventListener("click", async () => {
     const selectedFolder = await window.api.selectDirs();
 
@@ -106,7 +104,7 @@ function updateFileTable(fileInfo) {
     previewButton.className = "preview-button";
     previewButton.title = "Preview Email";
     previewButton.addEventListener("click", () => {
-        // Use IPC to send the 'open-preview-window' event to the main process
+
         window.api.send("open-preview-window", fileInfo);
     });
 
@@ -126,27 +124,14 @@ function updateFileTable(fileInfo) {
     });
 }
 
-// Event listener for the "file-added" event
 window.api.on("file-added", (fileInfo) => {
     updateFileTable(fileInfo);
 });
 
-// Event listener for the "file-changed" event
 window.api.on("file-changed", (fileInfo) => {
     updateFileTable(fileInfo);
 });
 
-// Event listener for the "file-removed" event
 window.api.on("file-removed", (fileInfo) => {
     updateFileTable(fileInfo);
-});
-
-// Event listener for the "file-info" event in the preview window
-window.api.on("file-info", (fileInfo) => {
-    console.log(`Received file-info in renderer.js:`, fileInfo);
-    // Update HTML with fileInfo data
-    document.getElementById("subject").value = fileInfo.subject;
-    document.getElementById("recipients").value =
-        fileInfo.recipients.join(", ");
-    document.getElementById("message").value = fileInfo.message;
 });

@@ -5,26 +5,32 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Preview</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Add any additional styles or links you need -->
+    <link rel="stylesheet" href="css/previewWindow.css">
 </head>
 <body>
-    <h1>Email Preview</h1>
-    <div>
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" readonly>
+    <div class="email-container">
+        <h1>Email Preview</h1>
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" readonly>
+        </div>
+        <div class="form-group">
+            <label for="recipients">Recipients:</label>
+            <ul id="recipients" class="recipients-list" readonly>
+                <!-- Recipients will be dynamically added here using JavaScript -->
+                <li>recipient1@example.com</li>
+                <li>recipient1@example.com</li>
+                <li>recipient1@example.com</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" readonly></textarea>
+        </div>
+        <button id="sendEmailButton">Send Email</button>
     </div>
-    <div>
-        <label for="recipients">Recipients:</label>
-        <input type="text" id="recipients" readonly>
-    </div>
-    <div>
-        <label for="message">Message:</label>
-        <textarea id="message" readonly></textarea>
-    </div>
-    <!-- Add any additional elements you need -->
 
-    <script src="./js/renderer.js"></script>
+    <script src="./js/previewWindow.js"></script>
     <script src="../preload.js"></script>
 </body>
 </html>
