@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Preview</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Add any additional styles or links you need -->
+</head>
+<body>
+    <h1>Email Preview</h1>
+    <div>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" readonly>
+    </div>
+    <div>
+        <label for="recipients">Recipients:</label>
+        <input type="text" id="recipients" readonly>
+    </div>
+    <div>
+        <label for="message">Message:</label>
+        <textarea id="message" readonly></textarea>
+    </div>
+    <!-- Add any additional elements you need -->
+
+    <script src="./js/renderer.js"></script>
+    <script src="../preload.js"></script>
+</body>
+</html>
