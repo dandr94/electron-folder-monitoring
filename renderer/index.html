@@ -5,42 +5,55 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="script-src 'self'" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Electron App</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title></title>
+  <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet"></head>
 
-</head>
-
-<body>
-  <div class="container">
-    <div class="browse-bar">
-      <i class="fas fa-folder folder-icon"></i>
-      <div class="line"></div>
-      <div class="text-label">Select a folder to monitor</div>
-      <button id="browseButton">Browse</button>
+  <body>
+    <div class="container">
+      <section class="top-bar">
+        <div class="browse-bar">
+          <i class="fas fa-folder folder-icon"></i>
+          <div class="line"></div>
+          <div class="text-label">Select a folder to monitor</div>
+          <button id="browseButton">Browse</button>
+        </div>
+      </section>
+      <section class="middle-bar">
+        <div class="monitoring">
+          <div class="status-icon">
+            <p class="status-test">Status: </p>
+            <i id="monitoringIcon" class="fa-solid fa-eye-slash"></i> 
+          </div>
+          <div class="buttons-container">
+            <button id="startMonitoringButton">Start Monitoring</button>
+          <button id="stopMonitoringButton">Stop Monitoring</button>
+          </div>
+        </div>
+      </section>
+      <section class="bottom-bar">
+        <div class="monitoring-table">
+          <table id="fileTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date Modified</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="fileTableBody"></tbody>
+        </table>
+        </div>
+      </section>
+      
     </div>
-    <div class="monitoring">
-        Status: <i id="monitoringIcon" class="fa-solid fa-eye-slash"></i> 
-        <button id="startMonitoringButton">Start Monitoring</button>
-        <button id="stopMonitoringButton">Stop Monitoring</button>
-    </div>
-    <div class="monitoring-table">
-      <table id="fileTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Date Modified</th>
-                <th>Type</th>
-                <th>Status</th>
-                
-            </tr>
-        </thead>
-        <tbody id="fileTableBody"></tbody>
-    </table>
-    </div>
-  </div>
-  
-</body>
+    
+  </body>
 <script src="./js/renderer.js"></script>
 <script src="../preload.js"></script>
 
