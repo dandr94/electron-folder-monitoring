@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 const path = require("node:path");
 const chokidar = require("chokidar");
+const config = require("./config");
 
 let mainWindow;
 let watcher;
@@ -10,8 +11,8 @@ const isDev = process.env.NODE_ENV !== "development";
 
 function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: isDev ? 1000 : 500,
-        height: 500,
+        width: 800,
+        height: 600,
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: true,
@@ -40,7 +41,7 @@ function createMainWindow() {
 
         // Start a new watcher
         watcher = chokidar.watch(folderPath, {
-            ignored: [/[/\\]\./, /\.tmp$/, /\.crdownload$/], // ignore dotfiles
+            ignored: [/[/\\]\./, /\.tmp$/, /\.crdownload$/],
             persistent: true,
         });
 
@@ -92,7 +93,7 @@ ipcMain.on("open-preview-window", (event, fileInfo) => {
 function openPreviewWindow(fileInfo) {
     previewWindow = new BrowserWindow({
         width: 800,
-        height: 800,
+        height: 650,
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: true,
@@ -102,13 +103,13 @@ function openPreviewWindow(fileInfo) {
 
     previewWindow.loadFile(path.join(__dirname, "renderer/previewWindow.html"));
 
-    previewWindow.webContents.openDevTools()
+    previewWindow.webContents.openDevTools();
 
     previewWindow.webContents.once("did-finish-load", () => {
-        console.log(previewWindow.webContents)
-        const subject = generateSubject(fileInfo);
-        const recipients = generateRecipients();
-        const message = generateMessage(fileInfo);
+        console.log(fileInfo);
+        const subject = config.generateSubject(fileInfo);
+        const recipients = config.generateRecipients();
+        const message = config.generateMessage(fileInfo);
 
         previewWindow.webContents.send("file-info", {
             subject,
@@ -127,22 +128,6 @@ function getFileInformation(path, eventType) {
     const dateModified = new Date();
     const type = name.split(".").pop();
     return { name, dateModified, type, eventType };
-}
-
-function generateSubject(fileInfo) {
-    return `${fileInfo.name} has been ${fileInfo.eventType}. Please check it out.`;
-}
-
-function generateRecipients() {
-    return [
-        "recipient1@example.com",
-        "recipient2@example.com",
-        "recipient3@example.com",
-    ];
-}
-
-function generateMessage(fileInfo) {
-    return `${fileInfo.name} has been ${fileInfo.eventType}. Please check it out.`;
 }
 
 const menu = [
