@@ -3,7 +3,8 @@ document.getElementById("browseButton").addEventListener("click", async () => {
 
     if (selectedFolder) {
         document.querySelector(".text-label").innerText = `${selectedFolder}`;
-        document.querySelector(".monitoring").style.display = "inline-block";
+        document.querySelector(".text-label").title = `${selectedFolder}`;
+        document.querySelector(".middle-bar").style.display = "inline-block";
         window.selectedFolder = selectedFolder;
     }
 });
@@ -19,6 +20,7 @@ document
         );
 
         const monitoringIcon = document.getElementById("monitoringIcon");
+        const browseButton = document.getElementById("browseButton");
 
         monitoringIcon.classList.remove("fa-eye-slash");
         monitoringIcon.classList.add("fa-eye");
@@ -27,7 +29,8 @@ document
 
         startMonitoringButton.style.display = "none";
         stopMonitoringButton.style.display = "inline-block";
-        document.getElementById("browseButton").disabled = "true";
+        browseButton.disabled = true;
+        browseButton.style.backgroundColor = "#ccc";
     });
 
 document
@@ -40,6 +43,7 @@ document
             "startMonitoringButton"
         );
         const monitoringIcon = document.getElementById("monitoringIcon");
+        const browseButton = document.getElementById("browseButton");
 
         monitoringIcon.classList.remove("fa-eye");
         monitoringIcon.classList.add("fa-eye-slash");
@@ -48,7 +52,9 @@ document
 
         startMonitoringButton.style.display = "inline-block";
         stopMonitoringButton.style.display = "none";
-        document.getElementById("browseButton").disabled = "false";
+
+        browseButton.disabled = false;
+        browseButton.style.backgroundColor = "#007bff";
     });
 
 let totalEntries = 0;
@@ -70,32 +76,42 @@ function updateFileTable(fileInfo) {
     const previewCell = row.insertCell(4);
 
     nameCell.innerText = fileInfo.name;
-    dateModifiedCell.innerText = new Date(fileInfo.dateModified).toLocaleString(
-        "en-US",
+    nameCell.title = fileInfo.name;
+
+    dateModifiedCell.innerHTML = `<div>${new Date(
+        fileInfo.dateModified
+    ).toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    })}</div><div>${new Date(fileInfo.dateModified).toLocaleTimeString(
+        "en-GB",
         {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
             hour: "numeric",
             minute: "numeric",
             second: "numeric",
             hour12: false,
         }
-    );
+    )}</div>`;
+
     typeCell.innerText = fileInfo.type;
 
     switch (fileInfo.eventType) {
         case "add":
             statusCell.innerText = "Added";
+            fileInfo.eventType = "Added";
             break;
         case "change":
             statusCell.innerText = "Modified";
+            fileInfo.eventType = "Modified";
             break;
         case "unlink":
             statusCell.innerText = "Deleted";
+            fileInfo.eventType = "Deleted";
             break;
         default:
             statusCell.innerText = "Unknown";
+            fileInfo.eventType = "Unknown";
     }
 
     const previewButton = document.createElement("button");
@@ -103,8 +119,9 @@ function updateFileTable(fileInfo) {
         '<i id="reply-button"class="fa-solid fa-reply"></i>';
     previewButton.className = "preview-button";
     previewButton.title = "Preview Email";
-    previewButton.addEventListener("click", () => {
 
+    previewButton.addEventListener("click", () => {
+        console.log(fileInfo);
         window.api.send("open-preview-window", fileInfo);
     });
 
