@@ -65,6 +65,36 @@ To send emails, the user must:
 
 ---
 
+## Usage
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+
+2. Install Dependencies:
+
+    ```bash
+    npm install
+
+3. Configure default settings. Edit the `config.json` file:
+
+    ```json
+    {
+    "username": "your-email@example.com",
+    "defaultSubject": "your default subject",
+    "defaultMessage": "your default message"
+    }
+    ```
+
+4. Start development server:
+
+    ```bash
+    npm start
+
+---
+
 ## 🖼️ User Interface Overview
 
 ### 📌 Base Interface – `base.png`
