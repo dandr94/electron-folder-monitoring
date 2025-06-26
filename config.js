@@ -13,6 +13,16 @@ function loadConfig() {
     }
 }
 
+function saveConfig(config) {
+    try {
+        const configJSON = JSON.stringify(config, null, 2);
+        fs.writeFileSync(configFile, configJSON, "utf8");
+        console.log("Config saved successfully!");
+    } catch (error) {
+        console.error("Error saving configuration:", error.message);
+    }
+}
+
 function replaceVariables(template, variables) {
     return template.replace(
         /\{(\w+)\}/g,
@@ -35,8 +45,27 @@ function generateMessage(fileInfo) {
     return config ? replaceVariables(config.defaultMessage, fileInfo) : "";
 }
 
+function generateUsername() {
+    const config = loadConfig();
+    return config ? config.username : "";
+}
+
+function generatePassword() {
+    const config = loadConfig();
+    return config ? config.password : "";
+}
+
+function generateApiKey() {
+    const config = loadConfig();
+    return config ? config.apiKey : "";
+}
+
 module.exports = {
     generateSubject,
     generateRecipients,
     generateMessage,
+    generateUsername,
+    generatePassword,
+    generateApiKey,
+    saveConfig,
 };

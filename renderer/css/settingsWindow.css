@@ -9,6 +9,7 @@ body {
     width: 90%;
     background-color: #f4f4f4;
     box-sizing: border-box;
+
 }
 
 
@@ -26,51 +27,20 @@ i {
     padding: 5px;
 }
 
-.cancel-icon {
-    cursor: pointer;
-    border-left: 1px solid #8f8f8f;
-    margin-left: 5px;
-}
-.cancel-icon:hover {
-    color: red;
+.middle-bar-username, .middle-bar-password, .middle-bar-apikey {
+    display: flex;
 }
 
-.middle-bar-recipients-title, .middle-bar-subject-title, .bottom-bar-message-title {
+.middle-bar-username-title, .middle-bar-password-title, .middle-bar-apikey-title {
     color: #8f8f8f;
 }
 
-.middle-bar-recipients, .middle-bar-subject {
-    display: flex;
-    
-}
-
-.middle-bar-recipients-ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 0;
-    padding-left: 10px;
-}
-.middle-bar-recipients-ul li, .middle-bar-subject-value, .bottom-bar-message-value {
+.middle-bar-username-value, .middle-bar-password-value, .bottom-bar-apikey-value {
     font-weight: bold;
 }
 
-.middle-bar-recipients-ul li {
-    border: 1px solid #8f8f8f;
-    border-radius: 7px;
-    margin-right: 5px;
-    margin-top: 5px;
-    padding: 3px;
-    font-size: 14px;
-}
-
-
-.middle-bar-subject-value {
-    padding-left: 10px;
-    word-wrap: break-word;
+.middle-bar-apikey-value {
     width: 100%;
-    max-width: 100%; /* Set to 100% to allow the input to take the full width */
-    word-break: break-all; 
 }
 
 .button-container {
@@ -79,7 +49,7 @@ i {
 
 }
 
-.send-email-button, .cancel-button {
+#save-button {
     color: black;
     font-weight: bold;
     padding: 10px 20px 10px 20px;
@@ -90,38 +60,21 @@ i {
     margin-bottom: 15px;
 }
 
-.send-email-button:hover {
+#save-button:hover {
     background-color: blanchedalmond;
 }
 
-.cancel-button:hover {
-    background-color: red;
-}
-
-input, textarea {
+input {
     border: none;
-    background: transparent;
-}
-textarea {
-    resize: none;
-    padding: 0;
     font-size: 16px;
-    width: 100%;
+    background: transparent;
+    font-weight: bold;
     font-family: 'Roboto Mono', monospace;
 
 }
 
-textarea:disabled {
-    color: black;
-}
-
-input:focus, textarea:focus{
+input:focus {
     outline: none;
-}
-
-#add-recipient {
-    margin-left: auto;
-    cursor: pointer;
 }
 
 .success-message {

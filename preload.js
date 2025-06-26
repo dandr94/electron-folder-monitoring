@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const {contextBridge, ipcRenderer} = require("electron");
 
 contextBridge.exposeInMainWorld("api", {
     selectDirs: async () => {
@@ -16,8 +16,17 @@ contextBridge.exposeInMainWorld("api", {
     },
     on: (channel, func) => {
         ipcRenderer.on(channel, (event, ...args) => {
-            console.log(`Received ${channel} event in preload.js`);
             func(...args);
         });
     },
+});
+
+contextBridge.exposeInMainWorld("config", {
+    loadConfig: () => ipcRenderer.invoke("load-config"),
+    saveConfig: (config) => ipcRenderer.send("save-config", config),
+    generateSubject: (fileInfo) =>
+        ipcRenderer.invoke("generate-subject", fileInfo),
+    generateRecipients: () => ipcRenderer.invoke("generate-recipients"),
+    generateMessage: (fileInfo) =>
+        ipcRenderer.invoke("generate-message", fileInfo),
 });

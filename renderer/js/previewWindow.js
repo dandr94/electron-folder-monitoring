@@ -86,9 +86,80 @@ function addRecipientToList(recipient, fileInfo) {
     recipientsList.appendChild(listItem);
 }
 
+function getUpdatedValues() {
+    const updatedSubject = document.getElementById("subject").value;
+    const updatedRecipients = Array.from(
+        document.querySelectorAll("#recipients li")
+    ).map((li) => li.textContent);
+    const updatedMessage = document.getElementById("message").value;
+
+    return {
+        subject: updatedSubject,
+        recipients: updatedRecipients,
+        message: updatedMessage,
+    };
+}
+
+function showSuccessMessage(message) {
+    const successMessage = document.createElement("div");
+    successMessage.classList.add("success-message");
+    successMessage.textContent = message;
+
+    document.body.appendChild(successMessage);
+
+    setTimeout(() => {
+        successMessage.remove();
+    }, 3000);
+}
+
+function showErrorMessage(message) {
+    const errorMessage = document.createElement("div");
+    errorMessage.classList.add("error-message");
+    errorMessage.textContent = message;
+
+    document.body.appendChild(errorMessage);
+
+    setTimeout(() => {
+        errorMessage.remove();
+    }, 3000);
+}
+
+function sendEmail() {
+    const updatedValues = getUpdatedValues();
+
+    if (updatedValues.recipients.length === 0) {
+        showErrorMessage("Please enter at least one recipient.");
+        return;
+    }
+
+    fetch("http://127.0.0.1:8000/api/send_email/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "007FcXtvaq45QHVoGUXqiJ7tIqHlle-Z9KRjqDZn_hc",
+        },
+        body: JSON.stringify({
+            sender_email: "sealdere@gmail.com",
+            sender_password: "sgwh eqji yrku rjry",
+            to_email: updatedValues["recipients"],
+            subject: updatedValues["subject"],
+            message: updatedValues["message"],
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => showSuccessMessage(data.message))
+        .catch((error) =>
+            showErrorMessage(
+                "Something went wrong. Email has not been successfully send!"
+            )
+        );
+}
+
 window.api.on("file-info", (fileInfo) => {
     document.getElementById("subject").value = fileInfo.subject;
     document.getElementById("message").value = fileInfo.message;
+
+    const sendEmailButton = document.getElementById("send-email");
 
     const recipientsList = document.getElementById("recipients");
     recipientsList.innerHTML = "";
@@ -96,4 +167,6 @@ window.api.on("file-info", (fileInfo) => {
     fileInfo.recipients.forEach((recipient) => {
         addRecipientToList(recipient, fileInfo);
     });
+
+    sendEmailButton.addEventListener("click", () => sendEmail());
 });

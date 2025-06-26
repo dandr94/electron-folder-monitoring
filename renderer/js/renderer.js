@@ -121,7 +121,6 @@ function updateFileTable(fileInfo) {
     previewButton.title = "Preview Email";
 
     previewButton.addEventListener("click", () => {
-        console.log(fileInfo);
         window.api.send("open-preview-window", fileInfo);
     });
 

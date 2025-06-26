@@ -1,169 +1,160 @@
 html {
-  background-color: #ebfbf8;
+    background-color: #ebfbf8;
 }
 
 body {
-  font-family: 'Roboto Mono', monospace;
-  margin: 15px auto;
-  width: 80%;
-  box-sizing: border-box;
-  background-color: #f2f2f2;
-  
+    font-family: "Roboto Mono", monospace;
+    margin: 15px auto;
+    width: 80%;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
 }
 
 section {
-  border: 1px solid #8f8f8f; /* Border for the entire browse bar */
-  border-radius: 4px;
+    border: 1px solid #8f8f8f;
+    border-radius: 4px;
 }
 
-
 .browse-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
 }
 
 .folder-icon {
-  font-size: 24px;
-  margin-right: 5px; /* Adjusted margin for the folder icon */
-  background-color: silver; /* Silver background for the icon */
-  padding: 8px;
-  border-radius: 50%; /* Rounded corners for the icon */
+    font-size: 24px;
+    margin-right: 5px;
+    background-color: silver;
+    padding: 8px;
+    border-radius: 50%;
 }
 
 .line {
-  height: 32px;
-  border-left: 1px solid #ccc;
-  margin-right: 5px; /* Adjusted margin for the line */
-  margin-left: 5px; /* New margin for the line */
+    height: 32px;
+    border-left: 1px solid #ccc;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .text-label {
-  margin-right: 5px; /* Adjusted margin for the text label */
-  margin-left: 5px; /* New margin for the text label */
-  color: #555;
-  max-width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: #555;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .right-line {
-  height: 32px;
-  border-left: 1px solid #ccc;
-  margin-left: 5px; /* New margin for the right line */
+    height: 32px;
+    border-left: 1px solid #ccc;
+    margin-left: 5px;
 }
-
 
 #browseButton {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-
 .middle-bar {
-  display: none;
-  width: 100%;
+    display: none;
+    width: 100%;
 }
 
 .monitoring {
-  padding: 10px;
-  background-color: #f4f4f4;
-  border-radius: 4px;
-
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
 }
 
 .status-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .status-icon i {
-  padding: 15px;
+    padding: 15px;
 }
 
 .buttons-container {
-  text-align: center;
+    text-align: center;
 }
 
 #startMonitoringButton {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 #stopMonitoringButton {
-  padding: 8px 16px;
-  background-color: red;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: none;
+    padding: 8px 16px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
 }
-
-
-
 
 .monitoring-label {
-  margin-right: 5px; /* Adjusted margin for the text label */
-  margin-left: 5px; /* New margin for the text label */
-  color: #555;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: #555;
 }
 #monitoringIcon {
-  margin-right: 5px; /* Adjusted margin for the icon */
-  font-size: 20px; /* Adjust the font size as needed */
+    margin-right: 5px;
+    font-size: 20px;
 }
 
 .monitoring-table {
-  border-radius: 4px;
-
+    border-radius: 4px;
 }
 
 #fileTable {
-width: 100%;
-border-collapse: collapse;
-margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-#fileTable th, #fileTable td {
-padding: 12px;
-text-align: left;
-border-bottom: 1px solid #ddd;
+#fileTable th,
+#fileTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 #fileTable th {
-background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 #fileTable td {
-  max-width: 180px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #fileTable td:nth-child(2) {
-  text-overflow: clip; /* or "initial" */
+    text-overflow: clip;
 }
 
-
 #fileTableBody tr:hover {
-background-color: #f5f5f5;
+    background-color: #f5f5f5;
 }
 
 .preview-button {
-border: none;
-cursor: pointer;
+    border: none;
+    cursor: pointer;
 }

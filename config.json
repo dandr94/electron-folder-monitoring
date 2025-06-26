@@ -1,5 +1,8 @@
 {
-    "defaultSubject": "File Update: {name} has been {eventType}.",
-    "defaultRecipients": ["recipient1@example.com", "recipient2@example.com"],
-    "defaultMessage": "{name} has been {eventType}. Please check it out."
+  "defaultSubject": "File Update: {name} has been {eventType}.",
+  "defaultRecipients": [],
+  "defaultMessage": "{name} has been {eventType}. Please check it out.",
+  "username": "test-username",
+  "password": "test-password",
+  "apiKey": "testApiKey"
 }

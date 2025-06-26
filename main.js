@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
+const {app, BrowserWindow, ipcMain, dialog, Menu} = require("electron");
 const path = require("node:path");
 const chokidar = require("chokidar");
 const config = require("./config");
@@ -6,6 +6,7 @@ const config = require("./config");
 let mainWindow;
 let watcher;
 let previewWindow;
+let settingsWindow;
 
 const isDev = process.env.NODE_ENV !== "development";
 
@@ -106,7 +107,6 @@ function openPreviewWindow(fileInfo) {
     previewWindow.webContents.openDevTools();
 
     previewWindow.webContents.once("did-finish-load", () => {
-        console.log(fileInfo);
         const subject = config.generateSubject(fileInfo);
         const recipients = config.generateRecipients();
         const message = config.generateMessage(fileInfo);
@@ -127,13 +127,55 @@ function getFileInformation(path, eventType) {
     const name = path.split("\\").pop();
     const dateModified = new Date();
     const type = name.split(".").pop();
-    return { name, dateModified, type, eventType };
+    return {name, dateModified, type, eventType};
 }
+
+function openSettingsWindow() {
+    settingsWindow = new BrowserWindow({
+        width: 800,
+        height: 650,
+        webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: true,
+            preload: path.join(__dirname, "preload.js"),
+        },
+    });
+
+    settingsWindow.loadFile(
+        path.join(__dirname, "renderer/settingsWindow.html")
+    );
+
+    settingsWindow.webContents.once("did-finish-load", () => {
+        const username = config.generateUsername();
+        const password = config.generatePassword();
+        const apiKey = config.generateApiKey();
+
+        settingsWindow.webContents.send("send-config", {
+            username,
+            password,
+            apiKey,
+        });
+    });
+
+    settingsWindow.webContents.openDevTools();
+
+    settingsWindow.on("closed", () => {
+        settingsWindow = null;
+    });
+}
+
+ipcMain.on("save-config", (event, config) => {
+    config.saveConfig(config);
+});
 
 const menu = [
     {
         label: "File",
         submenu: [
+            {
+                label: "Settings",
+                click: () => openSettingsWindow(),
+            },
             {
                 label: "Quit",
                 click: () => app.quit(),
